@@ -18,11 +18,15 @@ mpg[c(86, 127, 150), "displ"] <- c(10, 13, 28)
 
 # Q3. 연료 종류를 의미하는 fl 변수는 다섯 가지 값(c, d, e, p, r)으로 구성됩니다. fl 변수에 이상치가 있는지 확인한 다음, 이상치를 제외하고 연료 종류별 hwy 평균을 구하세요.
 
+table(mpg$fl)
 
+mpg$fl <- ifelse(mpg$fl %in% c("c", "d", "e", "p", "r"), mpg$fl,NA)
 
+table(mpg$hwy)
 
+filter(mpg, !is.na(fl)) %>% group_by(fl) %>% summarise(fl_mean = mean(hwy))
 
-
+filter(mpg, fl %in% c("c", "d", "e", "p", "r")) %>% group_by(fl) %>% summarise(fl_mean = mean(hwy))
 
 
 
