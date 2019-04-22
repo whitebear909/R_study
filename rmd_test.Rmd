@@ -1,0 +1,30 @@
+---
+title: "rmd_test"
+output:
+  html_document: default
+  word_document: default
+---
+ 
+# 데이터 불러오기
+## 제목2
+### 제목3
+#### 제목4
+
+
+`ggplot2` 패키지의 `qplot()` 함수로 그래프를 만들겠습니다.
+*ggplot2* 패키지의 **qplot()** 함수로 그래프를 만들겠습니다.
+
+
+
+
+## 분석보고서
+```{r}
+library(ggplot2)
+head(mpg)
+
+```
+
+```{r}
+qplot(mpg$drv)
+```
+

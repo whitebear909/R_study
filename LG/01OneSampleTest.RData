@@ -1,0 +1,70 @@
+# 일표본 검정(One sample test)
+# 하나의 모집단의 양적자료의 평균이
+# 기존보다 커졌는지, 작아졌는지, 달라졌는지를 
+# 통계적으로 분석하는 방법
+
+# 귀무가설 : 미국 성인 여성들의 평균 몸무게는 130 파운드이다.
+# 대립가설 : 미국 성인 여성들의 평균 몸무게는 130 파운드보다 많다.
+
+# 추출방법 및 기준 합의 필요
+
+# 예제 데이터 : women
+# 변수명 : weight, height
+
+# 기준 : 유의수준 5%
+
+# 1단계 : 정규성 검정(Normality Test)
+# 귀무가설 : 미국 성인 여성들의 몸무게는 정규분포를 따른다.
+# 대립가설 : 미국 성인 여성들의 몸무게는 정규분포를 따르지 않는다.
+# shapiro.test(data$variable) : 표본으로 모집단이 정규분포를 따르는지 확인해줌
+
+shapiro.test(women$weight)
+
+# 결론 : 귀무가성, 즉 정규성 가정을 만족함
+
+# 2단계 : 일표본 t검정(One Sample t-test)
+# t.test(data$variable,
+#        mu = , 
+#        alternative = )
+# mu : 귀무가설이 참일 때의 모평균
+# alternatve = 대립가설, "greater", "less", two.sided"
+
+t.test(women$weight, 
+       mu          = 130,
+       alternative = "greater"
+       )
+
+# 결론
+# 유의확률이 0.0571이므로
+# 유의수준 0.05에서 
+# 미국 성인 여성들의 몸무게에는 
+# 통계적으로 유의한 변화는 없는 것으로 나타났다.
+
+# 2단계 : 만약에 1단계의 결론이 대립가설,
+# 즉 정규성 가정이 깨졌다면
+# Wilcoxon's signed rank test : 비모수적 방법
+# 비모수적 방법 : Non-parametric Method
+# 모수적 방법 : Parametric Method
+# 이럴경우 이상치를 제거하거나 변환처리해본다.
+# log(Y), 루트 y, 1/y 대칭 확보를 위해서 이러한 변환과정(Box-Cox Transpormation)을 거침 (매우큰 값을 일반화하게 위해서)
+# 그래도 값이 크다면 아래 방법 사용
+
+# wilcox.test(data$variable,
+#        mu = , 
+#        alternative = )
+# mu : 귀무가설이 참일 때의 모평균
+# alternatve = 대립가설, "greater", "less", two.sided"
+wilcox.test(women$weight, 
+            mu          = 130,
+            alternative = "greater"
+            )
+
+# 결론
+# 유의확률이 0.08441이므로
+# 유의수준 0.05에서 
+# 미국 성인 여성들의 몸무게에는 
+# 통계적으로 유의한 변화는 없는 것으로 나타났다.
+
+
+
+
